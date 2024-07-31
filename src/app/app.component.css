@@ -1,20 +1,28 @@
-.container {
-    width: 100vw;
+#container {
     height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
-.main{
-    height: 80%;
+#main {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 5px;
+}
+textarea {
+    resize: none;
     width: 100%;
+    display: block;
+    overflow: auto;
+}
+.textarea-container {
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+}
+#actions {
+    margin: 5px;
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
-    align-content: stretch;
-    flex-wrap: wrap;
-    align-items: stretch;
-}
-.description {
-}
-.solution {
-}
-.chat {
+    justify-content: flex-end;
 }

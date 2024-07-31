@@ -1,35 +1,42 @@
-<div class="container">
-  <div class="main">
-    <div class="description">
-      <h4>Description</h4>
-      <mat-form-field>
-        <textarea matInput [(ngModel)]="description"></textarea>
-      </mat-form-field>
+<div id="container">
+  <div class="title-bar">
+    <div class="title-bar-text">Mentor Code</div>
+  </div>
+  <div id="main">
+    <div>
+      <fieldset>
+        <legend>Description</legend>
+        <div class="textarea-container">
+          <textarea title="Description" [rows]="rows" matInput [(ngModel)]="description"></textarea>
+        </div>
+      </fieldset>
     </div>
-    <div class="solution">
-      <h4>Solution</h4>
-      <mat-form-field>
-        <textarea matInput [(ngModel)]="solution"></textarea>
-      </mat-form-field>
+    <div>
+      <fieldset>
+        <legend>Solution</legend>
+        <div class="textarea-container">
+          <textarea title="Code solution" [rows]="rows" matInput [(ngModel)]="solution"></textarea>
+        </div>
+      </fieldset>
     </div>
-    <div class="chat">
-      c
-      <p>
-        {{responseOpenAi}}
-      </p>
+    <div>
+      <fieldset>
+        <legend>Response</legend>
+        <div class="textarea-container">
+          <textarea title="Response" matInput [(ngModel)]="responseOpenAi" [rows]="rows"></textarea>
+        </div>
+      </fieldset>
     </div>
   </div>
-  <div class="message-area">
-    
-    <mat-form-field>
-      <mat-label>Leave a comment</mat-label>
-      <textarea matInput [(ngModel)]="message"></textarea>
-    </mat-form-field>
-    <button mat-raised-button id="wsButton" type="button" title="Open WebSocket connection" (click)="openWebSocket()" *ngIf="threadId == ''">
-      Open WebSocket connection
+  <div id="actions">
+    <button (click)="resetConection()" [disabled]="status != 2">Reset</button>
+    <button (click)="sendMessage()" [disabled]="status != 1">
+      Explain my code
     </button>
-    <button mat-raised-button id="wsSendButton" type="button" title="Send WebSocket message" (click)="sendMessage()" *ngIf="threadId != ''">
-      Send WebSocket message
-    </button>
+  </div>
+  <div class="status-bar">
+    <p class="status-bar-field">Status: {{statusEnum[status]}}</p>
+    <p class="status-bar-field">Messages lines count {{responseLinesCount}}</p>
+    <p class="status-bar-field">Developed by Erika Valdes</p>
   </div>
 </div>
