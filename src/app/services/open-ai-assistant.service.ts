@@ -34,7 +34,7 @@ export class OpenAiAssistantService {
     };
   }
 
-  sendMessage(message: string, type: string = '') : void {
+  sendMessage(message: string, type: string = '', selectedLanguage: string) : void {
     if (!this.ws) {
       throw new Error('No WS found');
     }
@@ -43,8 +43,10 @@ export class OpenAiAssistantService {
       assistant_id: environment.assistant_id,
       thread_id: this.threadId,
       message: message,
-      type: type
+      type: type,
+      instructions: `Talk to me on ${selectedLanguage}`
     };
+    console.table(runThreadReq);
     this.ws.send(JSON.stringify(runThreadReq));
   }
 

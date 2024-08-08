@@ -1,14 +1,17 @@
 import { Component, HostListener, inject, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { OpenAiAssistantService } from '../../services/open-ai-assistant.service';
 import { CommonModule } from '@angular/common';
 import { CodeEditor, DiffEditor } from '@acrodata/code-editor';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import "98.css";
+
+import { OpenAiAssistantService } from '../../services/open-ai-assistant.service';
+import { DialogComponent } from '../dialog/dialog.component';
 
 @Component({
   selector: 'app-explain-problem',
   standalone: true,
-  imports: [CommonModule, FormsModule, CodeEditor, DiffEditor],
+  imports: [CommonModule, FormsModule, CodeEditor, DiffEditor, MatDialogModule],
   templateUrl: './explain-problem.component.html',
   styleUrl: './explain-problem.component.css',
 })
@@ -18,11 +21,14 @@ export class ExplainProblemComponent {
   oldCode = '';
   commentedCode = '';
   rateResponse = '';
+  selectedLanguage = 'english';
   language = 'unknown';
-  rate = 10;
+  rate = 0;
   threadId = '';
   description = '';
   solution = '';
+  wantRate = false;
+  reasonRate = '';
 
   public getScreenHeight: any;
   rows = 100;
@@ -37,6 +43,7 @@ export class ExplainProblemComponent {
     6: 'Rating'
   };
   status = 0;
+  dialog = inject(MatDialog);
   assistantSrv = inject(OpenAiAssistantService);
 
   onClose = () => {};
@@ -72,13 +79,19 @@ export class ExplainProblemComponent {
         case 5:
           let res = JSON.parse(this.resCommentedCode);
           this.commentedCode = res.code;
-          this.oldCode = res.old_code;
+          this.oldCode = this.solution;
           this.language = res.language;
-          this.getRate();
+          if (this.wantRate) {
+            this.getRate();
+          } else {
+            this.status = 2;
+          }
           break;
         case 6:
           let resRate = JSON.parse(this.rateResponse);
           console.log(resRate);
+          this.rate = resRate.rate;
+          this.reasonRate = resRate.reason;
           this.status = 2;
           break;
       }
@@ -131,7 +144,7 @@ export class ExplainProblemComponent {
 
   getCommentedCode() {
     this.status = 5;
-    const message = `Comment my code with that explanations and only return my own code with the comments.`;
+    const message = `Comment my code with that explanations and return my own code with the comments. Please return the original code as well as old_code`;
     this.sendMessage(message, "comment" );
   }
 
@@ -143,10 +156,16 @@ export class ExplainProblemComponent {
 
   sendMessage(message: string, type: string = '') {
     try {
-      this.assistantSrv.sendMessage(message, type);
+      this.assistantSrv.sendMessage(message, type , this.selectedLanguage);
     } catch (error) {
       this.onError();
     }
+  }
+
+  showMeWhy() {
+    this.dialog.open(DialogComponent, {
+      data: {message: this.reasonRate},
+    });
   }
 
   @HostListener('window:resize', ['$event'])

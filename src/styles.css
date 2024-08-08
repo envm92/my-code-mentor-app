@@ -11,3 +11,6 @@ body {
   font-size: 12px;
   background: #c0c0c0;
 }
+.mat-mdc-dialog-surface {
+  border-radius: 0;
+}

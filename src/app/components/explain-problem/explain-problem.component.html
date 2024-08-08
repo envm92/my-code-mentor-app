@@ -48,28 +48,30 @@
   </div>
   <div id="tool-bar">
     <div>
+      @if (wantRate) {
       <fieldset>
         <div class="field-row">Rate:</div>
         <div class="field-row">
-          <strong>10</strong> &nbsp;  / <small>10</small>
-          <button>Why?!</button>
+          <strong>{{this.rate}}</strong> &nbsp;  / <small>10</small>
+          <button (click)="showMeWhy()" [disabled]="reasonRate === ''">Why?!</button>
         </div>
       </fieldset>
+      }
     </div>
     <fieldset>
       <div class="field-row">Options:</div>
       <div class="field-row">
-        <input type="checkbox" id="rateOption">
+        <input type="checkbox" id="rateOption" [(ngModel)]="wantRate">
         <label for="rateOption">Rate my code</label>
       </div>
     </fieldset>
     <fieldset>
       <div class="field-row">Language:</div>
       <div class="field-row">
-        <select title="language">
-          <option>English</option>
-          <option>Spanish</option>
-          <option>Japanes</option>
+        <select title="language" [(ngModel)]="selectedLanguage" name="language">
+          <option value="english">English</option>
+          <option value="spanish">Spanish</option>
+          <option value="japanese">Japanese</option>
         </select>
       </div>
     </fieldset>
