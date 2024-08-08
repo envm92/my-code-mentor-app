@@ -1,0 +1,90 @@
+<div id="container">
+  <div class="title-bar">
+    <div class="title-bar-text">Mentor Code</div>
+  </div>
+  <div id="main">
+    <div>
+      <fieldset>
+        <legend>Description</legend>
+        <div class="textarea-container">
+          <code-editor
+            [(ngModel)]="description"
+            [style.height]="solutionAreaHeight"
+          />
+        </div>
+      </fieldset>
+    </div>
+    <div>
+      <fieldset>
+        <legend>Solution</legend>
+        <div class="textarea-container">
+          @if (commentedCode === '') {
+            <code-editor
+            [(ngModel)]="solution"
+            [style.height]="solutionAreaHeight"
+          />
+          }
+          
+          @if (commentedCode !=='') {
+            <diff-editor [(originalValue)]="oldCode" [(modifiedValue)]="commentedCode"
+            [style.height]="solutionAreaHeight"
+          />
+          }
+        </div>
+      </fieldset>
+    </div>
+    <div>
+      <fieldset>
+        <legend>Response</legend>
+        <div class="textarea-container">
+          <code-editor
+            [(ngModel)]="responseOpenAi"
+            [style.height]="solutionAreaHeight"
+            lineWrapping="true"
+          />
+        </div>
+      </fieldset>
+    </div>
+  </div>
+  <div id="tool-bar">
+    <div>
+      <fieldset>
+        <div class="field-row">Rate:</div>
+        <div class="field-row">
+          <strong>10</strong> &nbsp;  / <small>10</small>
+          <button>Why?!</button>
+        </div>
+      </fieldset>
+    </div>
+    <fieldset>
+      <div class="field-row">Options:</div>
+      <div class="field-row">
+        <input type="checkbox" id="rateOption">
+        <label for="rateOption">Rate my code</label>
+      </div>
+    </fieldset>
+    <fieldset>
+      <div class="field-row">Language:</div>
+      <div class="field-row">
+        <select title="language">
+          <option>English</option>
+          <option>Spanish</option>
+          <option>Japanes</option>
+        </select>
+      </div>
+    </fieldset>
+  </div>
+  <div id="actions">
+    <button (click)="resetConection()" [disabled]="status != 2">Reset</button>
+    <button (click)="startProcess()" [disabled]="status != 1">
+      Explain my code
+    </button>
+  </div>
+  <div class="status-bar">
+    <p class="status-bar-field">Status: {{ statusEnum[status] }}</p>
+    <p class="status-bar-field">
+      Programming language: {{ language }}
+    </p>
+    <p class="status-bar-field">Developed by Erika Valdes</p>
+  </div>
+</div>
