@@ -1,0 +1,6 @@
+:host {
+    border-radius: 0;
+}
+.mat-mdc-dialog-surface {
+    border-radius: 0 !important;
+}
