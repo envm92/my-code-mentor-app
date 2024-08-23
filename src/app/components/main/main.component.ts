@@ -5,16 +5,19 @@ import { FormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { OpenAiAssistantService } from '../../services/open-ai-assistant.service';
 import { DialogComponent } from '../dialog/dialog.component';
+import { DiffComponent } from "../diff/diff.component";
 
 @Component({
   selector: 'app-main',
   standalone: true,
-  imports: [InputComponent, TermialComponent, FormsModule],
+  imports: [InputComponent, TermialComponent, FormsModule, DiffComponent],
   templateUrl: './main.component.html',
   styleUrl: './main.component.css',
 })
 export class MainComponent implements OnInit{
+  tabSelected = 0;
   wantRate: boolean = false;
+  wantBigO: boolean = false;
   statusEnum: any = {
     0: 'Loading...',
     1: 'Stand by',
@@ -23,6 +26,7 @@ export class MainComponent implements OnInit{
     4: 'Explaing',
     5: 'Comment the code',
     6: 'Rating',
+    7: 'Calculate BigO'
   };
   selectedLanguage = 'english';
   language = 'unknown';
@@ -37,7 +41,11 @@ export class MainComponent implements OnInit{
   rate: number = 0;
 
   commentedResponse: any = '';
+  userCode: any = '';
   rateResponse: any = '';
+
+  bigOResponse: any = '';
+  bigOOutput: any = 'unknown';
 
   dialog = inject(MatDialog);
   assistantSrv = inject(OpenAiAssistantService);
@@ -63,6 +71,9 @@ export class MainComponent implements OnInit{
         case 6:
           this.rateResponse += res.text;
           break;
+        case 7:
+          this.bigOResponse += res.text;
+          break;
       }
       
     } else {
@@ -73,17 +84,32 @@ export class MainComponent implements OnInit{
         case 5:
           let res = JSON.parse(this.commentedResponse);
           this.commentedResponse = res.code;
+          this.userCode = res.old_code;
           this.language = res.language;
           if (this.wantRate) {
             this.getRate();
           } else {
-            this.status = 2;
+            if(this.wantBigO) {
+              this.getBigO();
+            } else {
+              this.status = 2;
+            }
           }
           break;
         case 6:
           let resRate = JSON.parse(this.rateResponse);
           this.rate = resRate.rate;
           this.reasonRate = resRate.reason;
+          if(this.wantBigO) {
+            this.getBigO();
+          } else {
+            this.status = 2;
+          }
+          break;
+        case 7:
+          let resBigO = JSON.parse(this.bigOResponse);
+          this.bigOOutput = resBigO.bigO;
+          console.log(resBigO);
           this.status = 2;
           break;
       }
@@ -130,6 +156,12 @@ export class MainComponent implements OnInit{
     this.sendMessage(message, "rate");
   }
 
+  getBigO() {
+    this.status = 7;
+    const message = `Calculate the bigO from my solution, can you explainme why ?`;
+    this.sendMessage(message, "bigo");
+  }
+
   resetConection() {
     this.assistantSrv.close();
     this.description = '';
@@ -146,5 +178,9 @@ export class MainComponent implements OnInit{
     this.dialog.open(DialogComponent, {
       data: {message: this.reasonRate},
     });
+  }
+
+  selectTab(arg0: number) {
+    this.tabSelected = arg0;
   }
 }

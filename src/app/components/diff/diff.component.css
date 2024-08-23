@@ -1,0 +1,21 @@
+.textarea-container {
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+
+    display: flex;
+    flex-direction: row;
+}
+diff-editor {
+    width: 0;
+    flex-grow: 1;
+    padding: 3px 4px;
+    border: none;
+    box-shadow: var(--border-field);
+    background-color: var(--button-highlight);
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 0;
+}

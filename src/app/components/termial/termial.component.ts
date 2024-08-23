@@ -16,6 +16,5 @@ export class TermialComponent {
 
   ngOnChanges(changes: any) {
     this.data = this.mdService.parse(this.explanation);
-    console.log(this.data);
   }
 }

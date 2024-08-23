@@ -1,1 +1,10 @@
-<p>diff works!</p>
+<fieldset>
+  <legend>Diff</legend>
+  <div class="textarea-container">
+    <diff-editor
+      [(originalValue)]="userSolutionCodeEditor"
+      [(modifiedValue)]="commentedSolutionCodeEditor"
+      [style.height]="solutionAreaHeight"
+    />
+  </div>
+</fieldset>

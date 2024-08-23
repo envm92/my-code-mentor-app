@@ -5,16 +5,17 @@
   <div id="main-body">
     <div id="input-output-text-areas">
       <menu role="tablist">
-        <li role="tab" aria-selected="true"><a href="#tabs">Input</a></li>
-        <li role="tab"><a href="#tabs">Output</a></li>
+        <li role="tab" [ariaSelected]="tabSelected == 0"><a (click)="selectTab(0)">Input</a></li>
+        <li role="tab" [ariaSelected]="tabSelected == 1"><a (click)="selectTab(1)">Output</a></li>
       </menu>
       <div class="window" role="tabpanel" id="window-tabpanel">
         <div class="window-body">
-          <app-input [(description)]="description" [(solution)]="solution"></app-input>
+          <app-input [hidden]="tabSelected != 0" [(description)]="description" [(solution)]="solution"></app-input>
+          <app-diff [hidden]="tabSelected != 1"[(userSolution)]="userCode" [(commentedSolution)]="commentedResponse"></app-diff>
         </div>
       </div>
     </div>
-    <app-termial [explanation]="explanation"></app-termial>
+    <app-termial [explanation]="explanation" ></app-termial>
     <div id="tool-bar">
       <fieldset>
         <div class="field-row">Language:</div>
@@ -31,7 +32,7 @@
           <label for="rateOption">Rate my code</label>
         </div>
         <div class="field-row">
-          <input type="checkbox" id="bigOOption" [(ngModel)]="wantRate">
+          <input type="checkbox" id="bigOOption" [(ngModel)]="wantBigO">
           <label for="bigOOption">Big O</label>
         </div>
       </fieldset>
@@ -40,6 +41,11 @@
         <div class="field-row">
           <strong>{{this.rate}}</strong> &nbsp;  / <small>10</small>
           <button (click)="showMeWhy()" [disabled]="reasonRate === ''">Why?!</button>
+        </div>
+
+        <div class="field-row">BigO:</div>
+        <div class="field-row">
+          <strong>{{this.bigOOutput}}</strong>
         </div>
       </fieldset>
     </div>
