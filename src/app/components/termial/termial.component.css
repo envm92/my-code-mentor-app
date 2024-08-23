@@ -1,5 +1,5 @@
 #container{
-  height: 100%;
+  height: 25vh;
 }
 .textarea-container {
   -webkit-box-sizing: border-box;
@@ -13,13 +13,11 @@
   padding: 3px 4px;
   border: none;
   box-shadow: var(--border-field);
-  background-color: black;
   box-sizing: border-box;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
   border-radius: 0;
-  color: azure;
   padding: 5px;
   border: 5px;
   font-weight: bolder;
