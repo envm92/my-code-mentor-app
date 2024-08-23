@@ -1,0 +1,28 @@
+#container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+#actions {
+    margin: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+#tool-bar{
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 5px;
+}
+#main-body {
+    height: 100%;
+    padding: 10px;
+    display: grid;
+    grid-template-rows: 4fr 2fr 1fr;
+}
+
+
+#input-output-text-areas{
+    height:100%;
+}
