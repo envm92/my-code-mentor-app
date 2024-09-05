@@ -41,6 +41,7 @@ export class MainComponent implements OnInit{
   rate: number = 0;
 
   commentedResponse: any = '';
+  commentedResponseFinal:any = '';
   userCode: any = '';
   rateResponse: any = '';
 
@@ -83,7 +84,7 @@ export class MainComponent implements OnInit{
           break;
         case 5:
           let res = JSON.parse(this.commentedResponse);
-          this.commentedResponse = res.code;
+          this.commentedResponseFinal = res.code;
           this.userCode = res.old_code;
           this.language = res.language;
           if (this.wantRate) {
@@ -109,7 +110,6 @@ export class MainComponent implements OnInit{
         case 7:
           let resBigO = JSON.parse(this.bigOResponse);
           this.bigOOutput = resBigO.bigO;
-          console.log(resBigO);
           this.status = 2;
           break;
       }

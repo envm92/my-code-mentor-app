@@ -2,5 +2,8 @@
   max-height: 25vh;
   height: 25vh;
   overflow: auto;
+  background: #ffffff;
+  padding: 5px;
+  border: 2px ridge #ede9e9;
 }
 

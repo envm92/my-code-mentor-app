@@ -9,14 +9,14 @@ import { Component, EventEmitter, HostListener, Input, Output } from '@angular/c
   styleUrl: './diff.component.css'
 })
 export class DiffComponent {
-  @Input() userSolution = '';
-  @Output() userSolutionChange = new EventEmitter<string>();
-  @Input() commentedSolution = '';
-  @Output() commentedSolutionChange = new EventEmitter<string>();
+  @Input() userCode = '';
+  @Output() userCodeChange = new EventEmitter<string>();
+  @Input() commentedResponse = '';
+  @Output() commentedResponseChange = new EventEmitter<string>();
   solutionAreaHeight: any = '200px';
 
-  userSolutionCodeEditor: string = '';
-  commentedSolutionCodeEditor: string = '';
+  userCodeCodeEditor: string = '';
+  commentedResponseCodeEditor: string = '';
 
   ngOnInit() {
     this.setTxtAreasHeight();
@@ -26,19 +26,18 @@ export class DiffComponent {
   }
 
   ngOnChanges(changes: any) {
-    console.log(this.userSolution, this.commentedSolution)
-    this.userSolutionCodeEditor = this.userSolution;
-    this.commentedSolutionCodeEditor = this.commentedSolution;
+    this.userCodeCodeEditor = this.userCode;
+    this.commentedResponseCodeEditor = this.commentedResponse;
   }
 
   solutionInputChange() {
-    this.userSolution = this.userSolutionCodeEditor;
-    this.userSolutionChange.emit(this.userSolution);
+    this.userCode = this.userCodeCodeEditor;
+    this.userCodeChange.emit(this.userCode);
   }
 
   descriptionInputChange() {
-    this.commentedSolution = this.commentedSolutionCodeEditor;
-    this.commentedSolutionChange.emit(this.commentedSolution);
+    this.commentedResponse = this.commentedResponseCodeEditor;
+    this.commentedResponseChange.emit(this.commentedResponse);
   }
 
   setTxtAreasHeight() {

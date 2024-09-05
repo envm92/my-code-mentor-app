@@ -11,7 +11,7 @@
       <div class="window" role="tabpanel" id="window-tabpanel">
         <div class="window-body">
           <app-input [hidden]="tabSelected != 0" [(description)]="description" [(solution)]="solution"></app-input>
-          <app-diff [hidden]="tabSelected != 1"[(userSolution)]="userCode" [(commentedSolution)]="commentedResponse"></app-diff>
+          <app-diff [hidden]="tabSelected != 1"[(userCode)]="userCode" [(commentedResponse)]="commentedResponseFinal"></app-diff>
         </div>
       </div>
     </div>
@@ -57,10 +57,13 @@
     </div>
   </div>
   <div class="status-bar">
-    <p class="status-bar-field">Status: {{ statusEnum[status] }}</p>
+    <p class="status-bar-field">Status: {{ statusEnum[status] }} </p>
+    @if ([0,4,5,6,7].includes(status)) {
+      <div class="loading-bar" style="width: 100px; height: 100%;"></div>
+    }
     <p class="status-bar-field">
       Programming language: {{ language }}
     </p>
-    <p class="status-bar-field">Developed by Erika Valdes</p>
+    <p class="status-bar-field">Author: Erika Valdes</p>
   </div>
 </div>
