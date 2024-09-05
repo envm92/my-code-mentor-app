@@ -5,6 +5,12 @@ This mentor code application, developed using Angular, connects to a WebSocket s
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.1.2.
 
+## Features
+* Explain code in three differents languages
+* Add comments to your code
+* Rating your code and give an explanation
+* Calculate BigO
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
