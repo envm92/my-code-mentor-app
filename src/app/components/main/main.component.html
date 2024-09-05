@@ -1,0 +1,69 @@
+<div id="container">
+  <div class="title-bar">
+    <div class="title-bar-text">Mentor Code</div>
+  </div>
+  <div id="main-body">
+    <div id="input-output-text-areas">
+      <menu role="tablist">
+        <li role="tab" [ariaSelected]="tabSelected == 0"><a (click)="selectTab(0)">Input</a></li>
+        <li role="tab" [ariaSelected]="tabSelected == 1"><a (click)="selectTab(1)">Output</a></li>
+      </menu>
+      <div class="window" role="tabpanel" id="window-tabpanel">
+        <div class="window-body">
+          <app-input [hidden]="tabSelected != 0" [(description)]="description" [(solution)]="solution"></app-input>
+          <app-diff [hidden]="tabSelected != 1"[(userCode)]="userCode" [(commentedResponse)]="commentedResponseFinal"></app-diff>
+        </div>
+      </div>
+    </div>
+    <app-termial [explanation]="explanation" ></app-termial>
+    <div id="tool-bar">
+      <fieldset>
+        <div class="field-row">Language:</div>
+        <div class="field-row">
+          <select title="language" [(ngModel)]="selectedLanguage" name="language">
+            <option value="english">English</option>
+            <option value="spanish">Spanish</option>
+            <option value="japanese">Japanese</option>
+          </select>
+        </div>
+        <div class="field-row">Options:</div>
+        <div class="field-row">
+          <input type="checkbox" id="rateOption" [(ngModel)]="wantRate">
+          <label for="rateOption">Rate my code</label>
+        </div>
+        <div class="field-row">
+          <input type="checkbox" id="bigOOption" [(ngModel)]="wantBigO">
+          <label for="bigOOption">Big O</label>
+        </div>
+      </fieldset>
+      <fieldset>
+        <div class="field-row">Rate:</div>
+        <div class="field-row">
+          <strong>{{this.rate}}</strong> &nbsp;  / <small>10</small>
+          <button (click)="showMeWhy()" [disabled]="reasonRate === ''">Why?!</button>
+        </div>
+
+        <div class="field-row">BigO:</div>
+        <div class="field-row">
+          <strong>{{this.bigOOutput}}</strong>
+        </div>
+      </fieldset>
+    </div>
+    <div id="actions">
+      <button (click)="resetConection()" [disabled]="status != 2">Reset</button>
+      <button (click)="startProcess()" [disabled]="status != 1">
+        Explain my code
+      </button>
+    </div>
+  </div>
+  <div class="status-bar">
+    <p class="status-bar-field">Status: {{ statusEnum[status] }} </p>
+    @if ([0,4,5,6,7].includes(status)) {
+      <div class="loading-bar" style="width: 100px; height: 100%;"></div>
+    }
+    <p class="status-bar-field">
+      Programming language: {{ language }}
+    </p>
+    <p class="status-bar-field">Author: Erika Valdes</p>
+  </div>
+</div>

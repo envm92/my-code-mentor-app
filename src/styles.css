@@ -7,7 +7,7 @@ body {
 body {
   margin: 0;
   color: #222;
-  font-family: Arial;
+  font-family: "Pixelated MS Sans Serif",Arial !important;
   font-size: 12px;
   background: #c0c0c0;
 }
